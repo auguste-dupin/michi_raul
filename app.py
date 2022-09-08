@@ -2,10 +2,22 @@ import streamlit as st
 import pandas as pd
 import os
 
+# Quitar headers y mas
+st.set_page_config(page_title='TIX')#, page_icon = favicon)
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
+# Seleccionar Eventos
 evento = st.sidebar.selectbox(label='Seleccionar evento', options=os.listdir('./data/'))
 df = pd.read_csv(f'./data/{evento}', index_col='Codigo')
 
-
+# App
 st.title('Buscar registro')
 codigo = st.text_input(label='', placeholder='Ingresar numero')
 if st.button(label='Buscar') or codigo:
